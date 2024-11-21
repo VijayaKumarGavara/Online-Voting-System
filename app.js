@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const path = require('path');
 const session = require('express-session');
-const moment=require('momet');
+const moment=require('moment');
 
 const app = express();
 const port = 3000;
