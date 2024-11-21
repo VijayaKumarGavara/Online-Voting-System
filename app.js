@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const path = require('path');
 const session = require('express-session');
+const moment=require('momet');
 
 const app = express();
 const port = 3000;
@@ -132,6 +133,19 @@ app.get('/dashboard', (req, res) => {
 
 // Vote route
 app.get('/vote', (req, res) => {
+  const votingStartTime = moment().set({ hour: 9, minute: 0, second: 0 });
+  const votingEndTime = moment().set({ hour: 23, minute: 0, second: 0 });
+  const currentTime = moment();
+
+  if (currentTime.isBefore(votingStartTime)) {
+    // Before 9 AM
+    return res.send('<script>alert("Voting is not started yet."); window.location="/dashboard";</script>');
+  }
+
+  if (currentTime.isAfter(votingEndTime)) {
+    // After 5 PM
+    return res.send('<script>alert("Polling time is completed; results will shortly be released."); window.location="/dashboard";</script>');
+  }
   const getCandidatesQuery = 'SELECT * FROM electioncandidates';
   db.query(getCandidatesQuery, (err, candidates) => {
     if (err) {
