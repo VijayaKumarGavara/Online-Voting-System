@@ -134,7 +134,7 @@ app.get('/dashboard', (req, res) => {
 // Vote route
 app.get('/vote', (req, res) => {
   const votingStartTime = moment().set({ hour: 9, minute: 0, second: 0 });
-  const votingEndTime = moment().set({ hour: 23, minute: 0, second: 0 });
+  const votingEndTime = moment().set({ hour: 17, minute: 0, second: 0 });
   const currentTime = moment();
 
   if (currentTime.isBefore(votingStartTime)) {
